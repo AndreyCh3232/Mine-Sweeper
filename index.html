@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/main.css">
+    <title>Mine Sweeper</title>
+</head>
+
+<body onload="onInit()">
+    <h1>Mine Sweeper</h1>
+
+    <div class="smiley">
+        <button onclick="">🙂</button>
+    </div>
+
+    <div class="difficulty-container">
+        <h2><span>Levels</span></h2>
+        <button onclick="onSetLevel(4)">4</button>
+        <button onclick="onSetLevel(8)">8</button>
+        <button onclick="onSetLevel(12)">12</button>
+    </div>
+
+    <div class="cell" oncontextmenu="return onCellMarked(this)"></div>
+
+    <table class="board-container">
+        <tbody class="board"></tbody>
+    </table>
+
+    <footer>
+        <p>Created by Andrey Chetvergov</p>
+    </footer>
+
+
+    <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
+</body>
+
+
+
+
+</html>

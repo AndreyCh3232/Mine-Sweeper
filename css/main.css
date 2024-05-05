@@ -1,0 +1,103 @@
+body {
+    background-image: url(/images/dac6a6-260143c5-00aa-45dc-91cc-97b11669049c.gif);
+
+}
+
+.board-container {
+    margin: auto;
+    margin-top: 250px;
+    background-color: black;
+    border-radius: 10px;
+    margin-top: 40px;
+
+}
+
+table,
+td {
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+
+.board td {
+
+    width: 60px;
+    height: 60px;
+    transition: 0.5s;
+    cursor: pointer;
+    background-color: green;
+    text-align: center;
+}
+
+.board td:hover {
+
+    background-color: gray;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    margin: auto;
+    font-style: italic;
+}
+
+h2 {
+    color: black;
+}
+
+span {
+    background-color: blue;
+    border-radius: 10px;
+}
+
+p {
+    font-size: 30px;
+    text-align: center;
+    margin-top: 300px;
+    color: black;
+    font-style: italic;
+    background-color: aqua;
+
+}
+
+.difficulty-container {
+    margin: auto;
+    text-align: center;
+    font-style: italic;
+    margin-top: 200px;
+    font-size: 20px;
+    margin-top: -10px;
+}
+
+.difficulty-container button {
+
+    background-color: lightseagreen;
+    font-size: 1.2rem;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid black;
+
+}
+
+.smiley {
+    margin: auto;
+    text-align: center;
+    padding-top: 100px;
+    margin-top: -30px;
+
+}
+
+.smiley button {
+    margin: auto;
+    text-align: center;
+    font-size: 40px;
+    height: 80px;
+    width: 80px;
+    background-color: gray;
+    cursor: pointer;
+
+
+}
