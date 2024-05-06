@@ -13,7 +13,11 @@
     <h1>Mine Sweeper</h1>
 
     <div class="smiley">
-        <button onclick="">🙂</button>
+        <button class="emoji-btn" onclick="restartGame()">🙂</button>
+    </div>
+
+    <div class="timer-box">
+        <h2 class="minutes">00</h2>:<h2 class="seconds">00</h2>
     </div>
 
     <div class="difficulty-container">
@@ -28,11 +32,16 @@
     <table class="board-container">
         <tbody class="board"></tbody>
     </table>
+    <div class="lives-container"></div>
+
+    <div>
+        <div class="grid"></div>
+        <div id="result"></div>
+    </div>
 
     <footer>
         <p>Created by Andrey Chetvergov</p>
     </footer>
-
 
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
