@@ -9,7 +9,6 @@ body {
     background-color: black;
     border-radius: 10px;
     margin-top: 40px;
-
 }
 
 table,
@@ -20,26 +19,19 @@ td {
 
 }
 
-.board td {
-
-    width: 60px;
-    height: 60px;
-    transition: 0.5s;
-    cursor: pointer;
-    background-color: green;
+:root {
+    --textColor: white;
     text-align: center;
-}
-
-.board td:hover {
-
-    background-color: gray;
+    --font: cursive;
 }
 
 h1 {
-    font-size: 50px;
+    font-size: 60px;
     text-align: center;
     margin: auto;
     font-style: italic;
+    -webkit-text-stroke: 3px darkmagenta;
+    position: relative;
 }
 
 h2 {
@@ -86,16 +78,16 @@ p {
     margin: auto;
     text-align: center;
     padding-top: 100px;
-    margin-top: -30px;
+    margin-top: -50px;
 
 }
 
 .smiley button {
     margin: auto;
     text-align: center;
-    font-size: 40px;
-    height: 80px;
-    width: 80px;
+    font-size: 60px;
+    height: 100px;
+    width: 100px;
     background-color: gray;
     cursor: pointer;
 
@@ -115,7 +107,7 @@ p {
     color: #ff7f11;
     margin: auto;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 40px;
 }
 
 .valid,
@@ -137,21 +129,23 @@ p {
 
 }
 
-/* .grid {
-    width: 400px;
-    height: 400px;
-    display: flex;
-    flex-wrap: wrap;
-    background: #acbfa4;
-    border: 10px solid #acbfa4;
-    margin-bottom: 20px;
+.is-shown-lCell {
+
+    background-color: gray;
+    background-image: none;
 }
 
-.grid div {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.lCell {
+    background-image: var(--CellbackgroundColor);
+    font-size: 1.5em;
+    width: 2em;
+    height: 2em;
+    border: 1px solid white;
+    border-radius: 4px;
+    color: var(--textColor);
+    font-weight: 600;
     cursor: pointer;
-} */
+    width: 60px;
+    height: 60px;
+
+}
