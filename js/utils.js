@@ -15,3 +15,24 @@ function pad(val) {
     }
 }
 
+function starTime() {
+
+    var elMinuteContainer = document.querySelector('.minutes')
+    var elSecondsContainer = document.querySelector('.seconds')
+    var starTime = Date.now()
+    gIntervalId = setInterval(function () {
+
+        var elapsed = Math.floor((Date.now() - starTime) / 1000)
+        var minutes = Math.floor(elapsed / 60)
+        var seconds = elapsed % 60
+
+        elSecondsContainer.innerText = pad(seconds)
+        elMinuteContainer.innerText = pad(minutes)
+    }, 100)
+}
+
+function endTimer() {
+    clearInterval(gIntervalId)
+}
+
+

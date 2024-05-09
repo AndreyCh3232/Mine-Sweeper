@@ -21,23 +21,18 @@
     </div>
 
     <div class="difficulty-container">
-        <h2><span>Levels</span></h2>
+        <h3><span>Levels</span></h3>
         <button onclick="onSetLevel(4)">4</button>
         <button onclick="onSetLevel(8)">8</button>
         <button onclick="onSetLevel(12)">12</button>
     </div>
 
-    <div class="cell" oncontextmenu="return onCellMarked(this)"></div>
-
     <table class="board-container">
+        <div class="hints-container"></div>
         <tbody class="board"></tbody>
     </table>
     <div class="lives-container"></div>
 
-    <div>
-        <div class="grid"></div>
-        <div id="result"></div>
-    </div>
 
     <footer>
         <p>Created by Andrey Chetvergov</p>

@@ -1,6 +1,10 @@
+html,
 body {
-    background-image: url(/images/dac6a6-260143c5-00aa-45dc-91cc-97b11669049c.gif);
-
+    background-image: url('../images/blue_cubes-wallpaper-1920x1080.jpg');
+    background-attachment: fixed;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 .board-container {
@@ -8,13 +12,13 @@ body {
     margin-top: 250px;
     background-color: black;
     border-radius: 10px;
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 table,
 td {
 
-    border: 1px solid black;
+    border: 5px solid black;
     border-radius: 10px;
 
 }
@@ -24,6 +28,7 @@ td {
     text-align: center;
     --font: cursive;
 }
+
 
 h1 {
     font-size: 60px;
@@ -38,6 +43,12 @@ h2 {
     color: black;
 }
 
+h3 {
+
+    font-size: 40px;
+
+}
+
 span {
     background-color: blue;
     border-radius: 10px;
@@ -49,7 +60,7 @@ p {
     margin-top: 300px;
     color: black;
     font-style: italic;
-    background-color: aqua;
+    background-color: rgb(13, 21, 139);
 
 }
 
@@ -57,7 +68,6 @@ p {
     margin: auto;
     text-align: center;
     font-style: italic;
-    margin-top: 200px;
     font-size: 20px;
     margin-top: -10px;
 }
@@ -71,6 +81,7 @@ p {
     border-radius: 10px;
     cursor: pointer;
     border: 1px solid black;
+    margin-top: 10px;
 
 }
 
@@ -123,20 +134,19 @@ p {
 
     margin: auto;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
     font-size: 50px;
 
 
 }
 
-.is-shown-lCell {
+.is-shown-cell {
 
     background-color: gray;
     background-image: none;
 }
 
-.lCell {
-    background-image: var(--CellbackgroundColor);
+.cell {
     font-size: 1.5em;
     width: 2em;
     height: 2em;
@@ -148,4 +158,29 @@ p {
     width: 60px;
     height: 60px;
 
+}
+
+.hints-container {
+    padding-right: 140px;
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+    text-align: center;
+    width: 55px;
+    margin-top: 100px;
+}
+
+.hint {
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.hint-active {
+    text-shadow: 0 0 10px #d4ff00,
+        0 0 0px #d4ff00,
+        0 0 0px #d4ff00,
+        0 0 4px #d4ff00,
+        0 0 5px #d4ff00,
+        0 0 0px #d4ff00,
+        0 0 0px #d4ff00
 }
