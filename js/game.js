@@ -12,10 +12,13 @@ var gLevel
 var gGame
 var lives
 var gIntervalId
+var gameOver = false
 var hints
 var hintCells = []
 var hintMode = false
+var gameStateHistory = []
 
+gBoard = []
 gBoard = {
     minesAroundCount: 4,
     isShown: false,
@@ -32,14 +35,14 @@ gLevel = {
     12: { SIZE: 12, MINES: 32 }
 }
 
-gGame = {
-    isOn: false,
-    shownCount: 0,
-    markedCount: 0,
-    specsPassed: 0
-}
-
 function onInit() {
+
+    gGame = {
+        isOn: true,
+        shownCount: 0,
+        markedCount: 0,
+        specsPassed: 0
+    }
 
     lives = 3
     hints = 3
@@ -50,24 +53,24 @@ function onInit() {
     document.querySelector('.minutes').innerHTML = `00`
     document.querySelector('.seconds').innerHTML = `00`
     document.querySelector('.emoji-btn').innerHTML = '🙂'
+    clearInterval(gIntervalId)
     endTimer()
-
 
 }
 
 function restartGame() {
 
     onInit()
-    endTimer()
-    starTime()
+    startTime()
+
+
 
 }
 
 function onSetLevel(level) {
     gLevel.SIZE = level
     onInit()
-    endTimer()
-    starTime()
+    startTime()
 }
 
 
@@ -163,16 +166,22 @@ function renderBoard(board) {
 
 function onCellClicked(elCell, i, j) {
 
+    if (gameOver) return
+
     var currCell = gBoard[i][j]
 
     if (!currCell.isShown) {
+        if (gGame.shownCount === 0) {
+            startTime()
+        }
+
         elCell.style.backgroundColor = 'gray'
         if (currCell.isMine) {
             elCell.innerText = MINE
             elCell.style.backgroundColor = 'red'
             lives--
             createLives()
-            checkGameOver()
+            checkGameOver(false)
         } else {
             var minesAroundCount = countMinesAroundCell(i, j)
             elCell.innerText = minesAroundCount
@@ -183,6 +192,10 @@ function onCellClicked(elCell, i, j) {
         }
         setMinesNegsCount(gBoard)
         createHint()
+
+        currCell.isShown = true
+        gGame.shownCount++
+
         var hitElement = document.querySelector('.hint')
         if (!hitElement) hitElement.remove()
 
@@ -190,16 +203,12 @@ function onCellClicked(elCell, i, j) {
             hintClicked(i, j)
         }
 
-
-        currCell.isShown = true
-        gGame.shownCount++
-
-        if (gGame.shownCount === 1) {
-            starTime()
-        } else if (gGame.shownCount === gLevel.SIZE ** 2 - gLevel.MINES) {
+        if (gGame.shownCount === gLevel.SIZE ** 2 - gLevel.MINES) {
             endTimer()
             renderBoard(gBoard)
+            checkGameOver(true)
         }
+        updateGameState()
     }
 }
 
@@ -226,33 +235,32 @@ function onCellMarked(event, elCell, i, j) {
         return
     }
     elCell.classList.toggle('marked')
+    var currCell = gBoard[i][j]
     if (elCell.classList.contains('marked')) {
         elCell.textContent = FLAG
+        currCell.isMarked = true
         gGame.markedCount++
     } else {
         elCell.textContent = ''
+        currCell.isMarked = false
         gGame.markedCount--
         checkGameOver()
     }
 }
 
-function checkGameOver() {
+function checkGameOver(isWin) {
 
-    if (lives === 0) {
+    if (lives === 0 || isWin) {
+        gameOver = true
+        clearInterval(gIntervalId)
+        document.querySelector('.emoji-btn').innerHTML = isWin ? '😎' : '🤯'
+        alert(isWin ? 'You Win!!!' : 'You Lose!!!')
         gGame.isOn = false
-        endTimer()
-        document.querySelector('.emoji-btn').innerHTML = '🤯'
-        alert('You Lose!!!')
-    } else if (lives > 0 && gGame.ShownCount === (gLevel.SIZE * gLevel.SIZE - gLevel.MINES)) {
-        gGame.isOn = false
-        endTimer()
-        document.querySelector('.emoji-btn').innerHTML = '😎'
-        alert('You Win!!!')
-        endTimer()
     }
 }
 
-function expandShown(board, elCell, row, col) {
+
+function expandShown(board, row, col) {
 
     for (var i = row - 1; i <= row + 1; i++) {
         for (var j = col - 1; j <= col + 1; j++) {
@@ -327,3 +335,26 @@ function hintClicked(i, j) {
     }
 }
 
+function updateGameState() {
+    var gameState = {
+        gBoard: JSON.parse(JSON.stringify(gBoard)),
+        gGame: JSON.parse(JSON.stringify(gGame)),
+        lives: lives,
+        hints: hints
+
+    }
+    gameStateHistory.push(gameState)
+}
+
+function undo() {
+    if (gameStateHistory.length > 1) {
+        gameStateHistory.pop()
+        var prevState = gameStateHistory.pop()
+        gBoard = prevState.gBoard
+        gGame = prevState.gGame
+        lives = prevState.lives
+        hints = prevState.hints
+
+        renderBoard(gBoard)
+    }
+}

@@ -15,7 +15,7 @@ function pad(val) {
     }
 }
 
-function starTime() {
+function startTime() {
 
     var elMinuteContainer = document.querySelector('.minutes')
     var elSecondsContainer = document.querySelector('.seconds')
