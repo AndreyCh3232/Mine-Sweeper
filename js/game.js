@@ -1,6 +1,5 @@
 'use strict'
 
-
 const MINE = '💣'
 const FLAG = '🚩'
 const LIFE = '❤️'
@@ -67,7 +66,6 @@ function onSetLevel(level) {
     onInit()
 }
 
-
 function placeMines(board) {
 
     const SIZE = gLevel[board.length].SIZE
@@ -108,7 +106,6 @@ function buildBoard() {
 
 function setMinesNegsCount(board) {
 
-
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[0].length; j++) {
             var count = 0
@@ -138,16 +135,20 @@ function renderBoard(board) {
             const className = `cell cell=${i}-${j}`
             var isShownCell = ''
             var cellView = ''
+            var bgColor = ''
 
             if (lCell.isShown && !lCell.isMarked) {
                 if (lCell.isMine) {
                     cellView = MINE
+                    bgColor = 'red'
+                    isShownCell = lCell.isShown ? "is-shown-cell" : ''
                 } else {
                     cellView = numOfMinesAroundCell === 0 ? '' : numOfMinesAroundCell
                     isShownCell = lCell.isShown ? "is-shown-cell" : ''
                 }
             }
             strHtml += `\n\t<td class="${className} ${isShownCell}"
+             style="background-color: ${bgColor}"
              onclick="onCellClicked(this, ${i}, ${j})" 
              oncontextmenu="onCellMarked(event, this, ${i},${j})">
              ${cellView}</td>`
@@ -171,7 +172,6 @@ function onCellClicked(elCell, i, j) {
 
         if (currCell.isMine) {
             elCell.innerText = MINE
-            elCell.style.backgroundColor = 'red'
             lives--
             createLives()
             checkGameOver(false)
@@ -197,12 +197,10 @@ function onCellClicked(elCell, i, j) {
             hintClicked(i, j)
         }
 
-
         if (gGame.shownCount === gLevel.SIZE ** 2 - gLevel.MINES) {
             endTimer()
             checkGameOver(true)
         }
-
         updateGameState()
         renderBoard(gBoard)
     }
@@ -256,7 +254,6 @@ function checkGameOver(isWin) {
     }
 }
 
-
 function expandShown(board, row, col) {
 
     for (var i = row - 1; i <= row + 1; i++) {
@@ -297,6 +294,9 @@ function createHint() {
 }
 
 function activeHintMode(lHint) {
+    if (gameOver) {
+        return
+    }
     hintMode = true
     lHint.classList.add('hint-active')
 }
