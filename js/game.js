@@ -59,18 +59,12 @@ function onInit() {
 }
 
 function restartGame() {
-
     onInit()
-    startTime()
-
-
-
 }
 
 function onSetLevel(level) {
     gLevel.SIZE = level
     onInit()
-    startTime()
 }
 
 
@@ -170,12 +164,11 @@ function onCellClicked(elCell, i, j) {
 
     var currCell = gBoard[i][j]
 
-    if (!currCell.isShown) {
+    if (!currCell.isShown && !currCell.isMarked) {
         if (gGame.shownCount === 0) {
             startTime()
         }
 
-        elCell.style.backgroundColor = 'gray'
         if (currCell.isMine) {
             elCell.innerText = MINE
             elCell.style.backgroundColor = 'red'
@@ -183,13 +176,14 @@ function onCellClicked(elCell, i, j) {
             createLives()
             checkGameOver(false)
         } else {
+            elCell.style.backgroundColor = 'gray'
             var minesAroundCount = countMinesAroundCell(i, j)
-            elCell.innerText = minesAroundCount
+            elCell.innerText = minesAroundCount || ''
             if (minesAroundCount === 0) {
-                expandShown(gBoard, elCell, i, j)
-
+                expandShown(gBoard, i, j)
             }
         }
+
         setMinesNegsCount(gBoard)
         createHint()
 
@@ -203,13 +197,14 @@ function onCellClicked(elCell, i, j) {
             hintClicked(i, j)
         }
 
+
         if (gGame.shownCount === gLevel.SIZE ** 2 - gLevel.MINES) {
             endTimer()
-            renderBoard(gBoard)
             checkGameOver(true)
+            updateGameState()
         }
-        updateGameState()
     }
+    renderBoard(gBoard)
 }
 
 function countMinesAroundCell(row, col) {
@@ -231,11 +226,12 @@ function countMinesAroundCell(row, col) {
 function onCellMarked(event, elCell, i, j) {
 
     event.preventDefault()
-    if (elCell.classList.contains('revealed')) {
-        return
-    }
+
+    if (gameOver || gBoard[i][j].isShown) return
+
     elCell.classList.toggle('marked')
     var currCell = gBoard[i][j]
+
     if (elCell.classList.contains('marked')) {
         elCell.textContent = FLAG
         currCell.isMarked = true
@@ -244,8 +240,8 @@ function onCellMarked(event, elCell, i, j) {
         elCell.textContent = ''
         currCell.isMarked = false
         gGame.markedCount--
-        checkGameOver()
     }
+    checkGameOver()
 }
 
 function checkGameOver(isWin) {
@@ -256,6 +252,7 @@ function checkGameOver(isWin) {
         document.querySelector('.emoji-btn').innerHTML = isWin ? '😎' : '🤯'
         alert(isWin ? 'You Win!!!' : 'You Lose!!!')
         gGame.isOn = false
+        updateGameState()
     }
 }
 
@@ -271,10 +268,12 @@ function expandShown(board, row, col) {
             if (!currCell.isShown && !currCell.isMarked) {
                 currCell.isShown = true
                 gGame.shownCount++
+                if (currCell.minesAround === 0) {
+                    expandShown(board, i, j)
+                }
             }
         }
     }
-    renderBoard(gBoard)
 }
 
 function createLives() {
@@ -344,6 +343,8 @@ function updateGameState() {
 
     }
     gameStateHistory.push(gameState)
+
+
 }
 
 function undo() {
@@ -354,7 +355,6 @@ function undo() {
         gGame = prevState.gGame
         lives = prevState.lives
         hints = prevState.hints
-
         renderBoard(gBoard)
     }
 }
