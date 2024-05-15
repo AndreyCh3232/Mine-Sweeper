@@ -201,10 +201,11 @@ function onCellClicked(elCell, i, j) {
         if (gGame.shownCount === gLevel.SIZE ** 2 - gLevel.MINES) {
             endTimer()
             checkGameOver(true)
-            updateGameState()
         }
+
+        updateGameState()
+        renderBoard(gBoard)
     }
-    renderBoard(gBoard)
 }
 
 function countMinesAroundCell(row, col) {
@@ -252,7 +253,6 @@ function checkGameOver(isWin) {
         document.querySelector('.emoji-btn').innerHTML = isWin ? '😎' : '🤯'
         alert(isWin ? 'You Win!!!' : 'You Lose!!!')
         gGame.isOn = false
-        updateGameState()
     }
 }
 
@@ -352,8 +352,6 @@ function updateGameState() {
 
     }
     gameStateHistory.push(gameState)
-
-
 }
 
 function undo() {
@@ -364,6 +362,12 @@ function undo() {
         gGame = prevState.gGame
         lives = prevState.lives
         hints = prevState.hints
+
+        if (gameOver) {
+            return
+        }
+
         renderBoard(gBoard)
+        updateGameState()
     }
 }
