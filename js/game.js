@@ -313,7 +313,6 @@ function hintExpendShow(rowIdx, colIdx) {
                 hintCells.push(currCell)
             }
         }
-
     }
     renderBoard(gBoard)
 }
@@ -330,9 +329,19 @@ function hintClicked(i, j) {
             hintMode = false
             hints--
         }
-
     }
+    setTimeout(() => {
+        for (var x = 0; x < hintCells.length; x++) {
+            var cell = hintCells[x]
+            cell.isShown = false
+            gGame.shownCount--
+        }
+        hintCells = []
+        renderBoard(gBoard)
+    }, 1000)
+    createHint()
 }
+
 
 function updateGameState() {
     var gameState = {
