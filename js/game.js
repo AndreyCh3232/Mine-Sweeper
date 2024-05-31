@@ -5,14 +5,13 @@ const FLAG = '🚩'
 const LIFE = '❤️'
 const EMPTY = ''
 
-var gBoard
+var gBoard = []
 var gLevel
 var gGame
 var lives
 var gIntervalId
 var gameOver = false
 
-gBoard = []
 gBoard = {
     minesAroundCount: 4,
     isShown: false,
@@ -40,6 +39,7 @@ function onInit() {
 
     lives = 3
     hints = 3
+    gSafeClicks = 3
     gameOver = false
     hintMode = false
     hintCells = []
@@ -53,6 +53,7 @@ function onInit() {
     document.querySelector('.emoji-btn').innerHTML = '🙂'
     clearInterval(gIntervalId)
     endTimer()
+    updateSafeClicksDisplay()
 
 }
 
@@ -100,7 +101,6 @@ function buildBoard() {
             }
         }
     }
-
     return board
 }
 
@@ -162,9 +162,29 @@ function renderBoard(board) {
     elBorad.innerHTML = strHtml
 }
 
+function renderCell(i, j) {
+    const cell = gBoard[i][j]
+    const elCell = document.querySelector(`.cell-${i}-${j}`)
+    var cellView = ''
+    if (cell.isMine) {
+        cellView = MINE
+    } else if (cell.isMarked) {
+        cellView = FLAG
+    } else {
+        cellView = cell.minesAroundCount === 0 ? '' : cell.minesAroundCount
+    }
+    elCell.innerHTML = cellView
+    elCell.style.backgroundColor = cell.isShown ? 'gray' : ''
+}
+
 function onCellClicked(elCell, i, j) {
 
-    if (gameOver) return
+    if (gameOver || !gGame.isOn) return
+
+    if (isMegaHintMode) {
+        handleMegaHint(i, j)
+        return
+    }
 
     var currCell = gBoard[i][j]
 
@@ -193,11 +213,9 @@ function onCellClicked(elCell, i, j) {
         currCell.isShown = true
         gGame.shownCount++
 
-        var hitElement = document.querySelector('.hint')
-        if (!hitElement) hitElement.remove()
-
         if (hintMode) {
             hintClicked(i, j)
+            return
         }
 
         if (gGame.shownCount === gLevel.SIZE ** 2 - gLevel.MINES) {
@@ -253,6 +271,15 @@ function checkGameOver(isWin) {
         document.querySelector('.emoji-btn').innerHTML = isWin ? '😎' : '🤯'
         alert(isWin ? 'You Win!!!' : 'You Lose!!!')
         gGame.isOn = false
+
+        for (var i = 0; i < gBoard.length; i++) {
+            for (var j = 0; j < gBoard[i].length; j++) {
+                if (gBoard[i][j].isMine) {
+                    gBoard[i][j].isShown = true
+                }
+            }
+        }
+        renderBoard(gBoard)
     }
 }
 

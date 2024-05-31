@@ -10,7 +10,11 @@
 </head>
 
 <body onload="onInit()">
-    <h1>Mine Sweeper</h1>
+
+    <div class="header">
+        <h1>Mine Sweeper </h1>
+        <button class="toggle-btn" onclick="toggleDarkMode()">Dark Mode</button>
+    </div>
 
     <div class="smiley">
         <button class="emoji-btn" onclick="restartGame()">🙂</button>
@@ -22,9 +26,9 @@
 
     <div class="difficulty-container">
         <h3><span>Levels</span></h3>
-        <button onclick="onSetLevel(4)">4</button>
-        <button onclick="onSetLevel(8)">8</button>
-        <button onclick="onSetLevel(12)">12</button>
+        <button onclick="onSetLevel(4)">Beginner</button>
+        <button onclick="onSetLevel(8)">Medium</button>
+        <button onclick="onSetLevel(12)">Expert</button>
     </div>
 
     <table class="board-container">
@@ -35,6 +39,12 @@
 
     <button class="undo-button" onclick="undo()">UNDO</button>
 
+    <div class="safe-button">
+        <button onclick="safeClick()">Safe Click</button>
+        <span id="safe-clicks-display">3</span>
+    </div>
+
+    <button class="mega-hint-btn" onclick="onMegaHintClick()">Mega Hint</button>
 
     <footer>
         <p>Created by Andrey Chetvergov</p>

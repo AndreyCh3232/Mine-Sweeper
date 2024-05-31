@@ -1,18 +1,34 @@
+* {
+    box-sizing: border-box;
+}
+
+
 html,
 body {
     background-image: url('../images/blue_cubes-wallpaper-1920x1080.jpg');
     background-attachment: fixed;
     text-align: center;
-    margin: 0;
+    font-family: Arial, sans-serif;
     padding: 0;
+    margin: -50px;
+    max-height: 300ch;
+    transition: background-image 0.5s ease;
+}
+
+body.dark-mode {
+    background-image: url('../images/black_background_fabric-wallpaper-1920x1080.jpg');
+    padding: 0;
+    background-attachment: fixed;
+    margin: -50px;
+    max-height: 300ch;
 }
 
 .board-container {
-    margin: auto;
-    margin-top: 250px;
+    margin: 5vh auto 0 auto;
     background-color: black;
+    max-width: 90vw;
     border-radius: 10px;
-    margin-top: 50px;
+    overflow: auto;
 }
 
 table,
@@ -31,12 +47,13 @@ td {
 
 
 h1 {
-    font-size: 70px;
+    font-size: 6vw;
     text-align: center;
     margin: auto;
-    font-style: italic;
     -webkit-text-stroke: 3px darkmagenta;
     position: relative;
+    padding-left: 10vw;
+    padding-bottom: 4vh;
 }
 
 h2 {
@@ -46,7 +63,7 @@ h2 {
 h3 {
 
     font-size: 40px;
-    margin-top: 10%;
+    margin-top: 10vh;
 
 }
 
@@ -56,13 +73,16 @@ span {
 }
 
 p {
-    font-size: 30px;
+    display: flex;
+    font-size: 2vw;
     text-align: center;
-    margin-top: 300px;
     color: black;
+    margin-top: 10vh;
     font-style: italic;
     background-color: rgb(13, 21, 139);
-
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .difficulty-container {
@@ -78,23 +98,21 @@ p {
     background-color: lightseagreen;
     font-size: 1.2rem;
     height: 50px;
-    width: 50px;
+    width: 90px;
     border-radius: 10px;
     cursor: pointer;
     border: 1px solid black;
-    margin-top: 0px;
-
 }
 
 .smiley {
+    display: flex;
     margin: auto;
-    text-align: center;
-    padding-top: 200px;
-    margin-top: -90px;
-
+    justify-content: center;
+    margin: 150px;
 }
 
 .smiley button {
+    justify-content: center;
     margin: auto;
     text-align: center;
     font-size: 60px;
@@ -119,16 +137,7 @@ p {
     color: #ff7f11;
     margin: auto;
     text-align: center;
-    margin-top: 100px;
-}
-
-.valid,
-.bomb {
-    height: 40px;
-    width: 40px;
-    border: 5px solid;
-    border-color: #e2e8ce #7c8a76 #7c8a76 #e2e8ce;
-    box-sizing: border-box;
+    margin-top: -40px;
 }
 
 .lives-container {
@@ -162,7 +171,7 @@ p {
 }
 
 .hints-container {
-    padding-right: 140px;
+    padding-right: 200px;
     display: flex;
     justify-content: flex-start;
     margin: auto;
@@ -200,4 +209,98 @@ p {
     border-radius: 10px;
     font-style: italic;
     margin-top: 40px;
+}
+
+.safe-button {
+    margin: 10px;
+    text-align: center;
+}
+
+.safe-button button {
+    background-color: #1282dd;
+    border: 2px solid white;
+    font-style: italic;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#safe-clicks-display {
+    margin-left: 10px;
+    margin: 10px;
+    font-size: 18px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    background-color: #1282dd;
+    text-align: center;
+    border: 2px solid white;
+    padding: 10px 24px;
+}
+
+.safe {
+    background-color: lightgreen;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.header h1 {
+    margin: auto;
+}
+
+.toggle-btn {
+    font-style: italic;
+    color: black;
+    background-color: rgb(114, 13, 172);
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 60px;
+    border: 2px solid black;
+}
+
+.mega-hint-btn {
+    background-color: rgb(155, 12, 36);
+    border: 5px solid black;
+    font-style: italic;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 80px;
+    width: 300px;
+    margin-top: 20px;
+    margin-right: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.mega-hint-btn:hover {
+    background-color: rgb(155, 12, 36);
+    transform: scale(1.05);
+}
+
+.mega-hint-btn:active {
+    background-color: #004080;
+    transform: scale(1);
+}
+
+.mega-hint-btn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
 }
